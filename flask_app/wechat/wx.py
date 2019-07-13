@@ -37,7 +37,7 @@ def handle():
             return "Failed"
     else:
         print('POST Handler')
-        data = request.form['body']
+        data = request.data
         print(data)
         return "success"
         # recMsg = receive.parse_json(data)
