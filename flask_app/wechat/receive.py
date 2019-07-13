@@ -2,31 +2,31 @@
 import xml.etree.ElementTree as ET
 import json
 
-def parse_json(data):
+def parse_xml(data):
     if len(data) == 0:
         return None
-    jsonData = json.loads(data)
-    msg_type = jsonData['MsgType']
+    xmlData = ET.fromstring(data)
+    msg_type = xmlData.find('MsgType').text
     if msg_type == 'text':
-        return TextMsg(jsonData)
+        return TextMsg(xmlData)
     elif msg_type == 'image':
-        return ImageMsg(jsonData)
+        return ImageMsg(xmlData)
         
 class Msg(object):
-    def __init__(self, jsonData):
-        self.ToUserName = jsonData['ToUserName']
-        self.FromUserName = jsonData['FromUserName']
-        self.CreateTime = jsonData['CreateTime']
-        self.MsgType = jsonData['MsgType']
-        self.MsgId = jsonData['MsgId']
+    def __init__(self, xmlData):
+        self.ToUserName = xmlData.find('ToUserName').text
+        self.FromUserName = xmlData.find('FromUserName').text
+        self.CreateTime = xmlData.find('CreateTime').text
+        self.MsgType = xmlData.find('MsgType').text
+        self.MsgId = xmlData.find('MsgId').text
         
 class TextMsg(Msg):
-    def __init__(self, jsonData):
-        Msg.__init__(self, jsonData)
-        self.Content = jsonData['Content'].encode("utf-8")
+    def __init__(self, xmlData):
+        Msg.__init__(self, xmlData)
+        self.Content = xmlData.find('Content').text.encode("utf-8")
         
 class ImageMsg(Msg):
-    def __init__(self, jsonData):
-        Msg.__init__(self, jsonData)
-        self.PicUrl = jsonData['PicUrl']
-        self.MediaId = jsonData['MediaId']
+    def __init__(self, xmlData):
+        Msg.__init__(self, xmlData)
+        self.PicUrl = xmlData.find('PicUrl').text
+        self.MediaId = xmlData.find('MediaId').text

@@ -40,15 +40,15 @@ def handle():
         data = request.data
         print(data)
         return "success"
-        # recMsg = receive.parse_json(data)
-        # if recMsg.MsgType == 'text':
-        #     toUser = recMsg.FromUserName
-        #     fromUser = recMsg.ToUserName
-        #     content = "Response text"
-        #     resMsg = reply.TextMsg(fromUser, toUser, content)
-        #     return resMsg.send()
-        # else:
-        #     return "This is wx POST handler!"
+        recMsg = receive.parse_xml(data)
+        if recMsg.MsgType == 'text':
+            toUser = recMsg.FromUserName
+            fromUser = recMsg.ToUserName
+            content = "Response text"
+            resMsg = reply.TextMsg(fromUser, toUser, content)
+            return resMsg.send()
+        else:
+            return "This is wx POST handler!"
 
 def TextHandler(request):
     pass
