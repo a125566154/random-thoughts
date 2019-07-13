@@ -9,6 +9,7 @@ bp = Blueprint('wx', __name__, url_prefix='/wx')
 @bp.route('/',methods=['GET','POST'])
 def handle():
     if request.method == 'GET':
+        print('GET Handler')
         print(request.args.get('key'))
         try:
             parse_xml("")
@@ -16,6 +17,7 @@ def handle():
             pass
         return "This is wx GET handler!"
     else:
+        print('POST Handler')
         data = request.form['body']
         recMsg = receive.parse_json(data)
         if recMsg.MsgType == 'text':
