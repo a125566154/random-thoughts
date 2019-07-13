@@ -29,7 +29,7 @@ def create_app(test_config=None):
         return 'Hello, World! This is from app factory'
 
     # register blueprints
-    from . import wx
+    from .wechat import wx
     app.register_blueprint(wx.bp)
 
     return app
