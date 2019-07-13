@@ -16,7 +16,7 @@ def handle():
             pass
         return "This is wx GET handler!"
     else:
-        print(request.form)
+        print(request.form['body'])
         try:
             parse_xml("")
         except:
