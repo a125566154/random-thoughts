@@ -13,16 +13,23 @@ def handle():
     if request.method == 'GET':
         print('GET Handler')
         signature = request.args.get('signature')
+        print('Signature: ',signature)
         timestamp = request.args.get('timestamp')
+        print('timestamp: ',timestamp)
         nonce = request.args.get('nonce')
+        print('nonce: ',nonce)
         echostr = request.args.get('echostr')
+        print('echostr: ',echostr)
         token = '1qaz2wsxE'
 
         list = [token, timestamp, nonce]
         list.sort()
-        sha1 = hashlib.sha1()
-        map(sha1.update, list)
+
+        temp = ''.join(list)
+        sha1 = hashlib.sha1(temp.encode('utf-8'))
+        #map(sha1.update, list)
         hashcode = sha1.hexdigest()
+        print('hashcode: ',hashcode)
 
         if hashcode == signature:
             return echostr
