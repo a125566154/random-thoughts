@@ -1,31 +1,32 @@
 # -*- coding: utf-8 -*-# filename: receive.py
 import xml.etree.ElementTree as ET
+import json
 
-def parse_xml(web_data):
-    if len(web_data) == 0:
+def parse_json(data):
+    if len(data) == 0:
         return None
-    xmlData = ET.fromstring(web_data)
-    msg_type = xmlData.find('MsgType').text
+    jsonData = json.loads(data)
+    msg_type = jsonData['MsgType']
     if msg_type == 'text':
-        return TextMsg(xmlData)
+        return TextMsg(jsonData)
     elif msg_type == 'image':
-        return ImageMsg(xmlData)
+        return ImageMsg(jsonData)
         
 class Msg(object):
-    def __init__(self, xmlData):
-        self.ToUserName = xmlData.find('ToUserName').text
-        self.FromUserName = xmlData.find('FromUserName').text
-        self.CreateTime = xmlData.find('CreateTime').text
-        self.MsgType = xmlData.find('MsgType').text
-        self.MsgId = xmlData.find('MsgId').text
+    def __init__(self, jsonData):
+        self.ToUserName = jsonData['ToUserName']
+        self.FromUserName = jsonData['FromUserName']
+        self.CreateTime = jsonData['CreateTime']
+        self.MsgType = jsonData['MsgType']
+        self.MsgId = jsonData['MsgId']
         
 class TextMsg(Msg):
-    def __init__(self, xmlData):
-        Msg.__init__(self, xmlData)
-        self.Content = xmlData.find('Content').text.encode("utf-8")
+    def __init__(self, jsonData):
+        Msg.__init__(self, jsonData)
+        self.Content = jsonData['Content'].encode("utf-8")
         
 class ImageMsg(Msg):
-    def __init__(self, xmlData):
-        Msg.__init__(self, xmlData)
-        self.PicUrl = xmlData.find('PicUrl').text
-        self.MediaId = xmlData.find('MediaId').text
+    def __init__(self, jsonData):
+        Msg.__init__(self, jsonData)
+        self.PicUrl = jsonData['PicUrl']
+        self.MediaId = jsonData['MediaId']

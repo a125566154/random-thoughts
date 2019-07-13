@@ -2,7 +2,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
-from flask_app.wechat import receive
+from flask_app.wechat import receive, reply
 
 bp = Blueprint('wx', __name__, url_prefix='/wx')
 
@@ -16,13 +16,16 @@ def handle():
             pass
         return "This is wx GET handler!"
     else:
-        print(request.form['body'])
-        try:
-            parse_xml("")
-        except:
-            pass
-        TextHandler(request)
-        return "This is wx POST handler!"
+        data = request.form['body']
+        recMsg = receive.parse_json(data)
+        if recMsg.MsgType == 'text':
+            toUser = recMsg.FromUserName
+            fromUser = recMsg.ToUserName
+            content = "Response text"
+            resMsg = reply.TextMsg(fromUser, toUser, content)
+            return resMsg.send()
+        else:
+            return "This is wx POST handler!"
 
 def TextHandler(request):
     pass
