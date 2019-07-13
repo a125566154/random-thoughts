@@ -37,17 +37,18 @@ def handle():
             return "Failed"
     else:
         print('POST Handler')
-        data = request.form['body']
-        print(data)
-        recMsg = receive.parse_json(data)
-        if recMsg.MsgType == 'text':
-            toUser = recMsg.FromUserName
-            fromUser = recMsg.ToUserName
-            content = "Response text"
-            resMsg = reply.TextMsg(fromUser, toUser, content)
-            return resMsg.send()
-        else:
-            return "This is wx POST handler!"
+        return "success"
+        # data = request.form['body']
+        # print(data)
+        # recMsg = receive.parse_json(data)
+        # if recMsg.MsgType == 'text':
+        #     toUser = recMsg.FromUserName
+        #     fromUser = recMsg.ToUserName
+        #     content = "Response text"
+        #     resMsg = reply.TextMsg(fromUser, toUser, content)
+        #     return resMsg.send()
+        # else:
+        #     return "This is wx POST handler!"
 
 def TextHandler(request):
     pass
