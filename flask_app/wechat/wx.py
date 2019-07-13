@@ -42,10 +42,11 @@ def handle():
         recMsg = receive.parse_xml(data)
         print('Message received successfully')
         if recMsg.MsgType == 'text':
+            print('text message')
             toUser = recMsg.FromUserName
             fromUser = recMsg.ToUserName
             content = "Response text"
-            resMsg = reply.TextMsg(fromUser, toUser, content)
+            resMsg = reply.TextMsg(toUser, fromUser, content)
             return resMsg.send()
         else:
             pass
