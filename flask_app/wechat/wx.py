@@ -39,7 +39,6 @@ def handle():
         print('POST Handler')
         data = request.data
         print(data)
-        return "success"
         recMsg = receive.parse_xml(data)
         if recMsg.MsgType == 'text':
             toUser = recMsg.FromUserName
@@ -48,7 +47,8 @@ def handle():
             resMsg = reply.TextMsg(fromUser, toUser, content)
             return resMsg.send()
         else:
-            return "This is wx POST handler!"
+            pass
+        return "success"
 
 def TextHandler(request):
     pass
