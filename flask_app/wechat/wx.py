@@ -40,6 +40,7 @@ def handle():
         data = request.data
         print(data)
         recMsg = receive.parse_xml(data)
+        print('Message received successfully')
         if recMsg.MsgType == 'text':
             toUser = recMsg.FromUserName
             fromUser = recMsg.ToUserName
