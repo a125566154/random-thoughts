@@ -37,9 +37,9 @@ def handle():
             return "Failed"
     else:
         print('POST Handler')
+        data = request.form['body']
+        print(data)
         return "success"
-        # data = request.form['body']
-        # print(data)
         # recMsg = receive.parse_json(data)
         # if recMsg.MsgType == 'text':
         #     toUser = recMsg.FromUserName
