@@ -30,6 +30,8 @@ def create_app(test_config=None):
 
     # register blueprints
     from .wechat import wx
+    from .resume import resume
     app.register_blueprint(wx.bp)
+    app.register_blueprint(resume.bp)
 
     return app
