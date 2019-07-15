@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<title>{{name}}'s Resume</title>
+<title>{{data['title']}}</title>
 <link rel="stylesheet" href="{{ url_for('static', filename = 'css/resume.min.css')}}">
 
 <!-- Custom fonts for this template -->
@@ -13,10 +13,10 @@
 {% block body %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
     <a class="navbar-brand js-scroll-trigger" href="#page-top">
-        <span class="d-block d-lg-none">Cary Wang</span>
+        <span class="d-block d-lg-none">{{data['content']['fullname']}}</span>
         <span class="d-none d-lg-block">
             <img class="img-fluid img-profile rounded-circle mx-auto mb-2"
-                src="{{ url_for('static', filename = 'image/profile.jpg')}}" alt="">
+                src="{{ url_for('static', filename = data['content']['profilePath'])}}" alt="">
         </span>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -48,22 +48,19 @@
 
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="about">
         <div class="w-100">
-            <h1 class="mb-0">Cary
-                <span class="text-primary">Wang</span>
+            <h1 class="mb-0">{{data['content']['firstName']}}
+                <span class="text-primary">{{data['content']['lastName']}}</span>
             </h1>
-            <div class="subheading mb-5">599 Jiangning Road · Shanghai · 17717595390 ·
-                <a href="mailto:cary.wang@hotmail.com">cary.wang@hotmail.com</a>
+            <div class="subheading mb-5">{{data['content']['location']}} · {{data['content']['mobile']}} ·
+                <a href="mailto:cary.wang@hotmail.com">{{data['content']['email']}}</a>
             </div>
             <p class="lead mb-5">
-                Experience leading product from concept to reality. <br>
-                Data-driven product development practice.<br>
-                2 years oversea working experience. Able to work with virtual team and deliver project successfully.<br>
-                Experience managing a team and coaching junior team members.<br>
-                Certified PMP. Experience with both traditional project management and Agile Scrum methodology. 
-
+                {% for item in data['content']['about'] %}
+                {{item}}<br>
+                {% endfor%}
             </p>
             <div class="social-icons">
-                <a href="www.linkedin.com/in/cw-a33866a4">
+                <a href="{{data['content']['linkedin']}}">
                     <i class="fab fa-linkedin-in"></i>
                 </a>
                 <!-- <a href="#">
@@ -84,48 +81,20 @@
     <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="experience">
         <div class="w-100">
             <h2 class="mb-5">Experience</h2>
+            {% for exp in data['content']['experienceList'] %}
 
             <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
                 <div class="resume-content">
-                    <h3 class="mb-0">Product Manager</h3>
-                    <div class="subheading mb-3">Mercer</div>
-                    <p>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the
-                        day, going forward, a new normal that has evolved from generation X is on the runway heading
-                        towards a streamlined cloud solution. User generated content in real-time will have multiple
-                        touchpoints for offshoring.</p>
+                    <h3 class="mb-0">{{exp['title']}}</h3>
+                    <div class="subheading mb-3">{{exp['company']}}</div>
+                    <p>{{exp['description']}}</p>
                 </div>
                 <div class="resume-date text-md-right">
-                    <span class="text-primary">Feb 2017 - Present</span>
+                    <span class="text-primary">{{exp['time']}}</span>
                 </div>
             </div>
 
-            <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
-                <div class="resume-content">
-                    <h3 class="mb-0">Business Analyst</h3>
-                    <div class="subheading mb-3">AvePoint Singapore</div>
-                    <p>Capitalize on low hanging fruit to identify a ballpark value added activity to beta test.
-                        Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion
-                        along the information highway will close the loop on focusing solely on the bottom line.</p>
-                </div>
-                <div class="resume-date text-md-right">
-                    <span class="text-primary">July 2014 - Feb 2017</span>
-                </div>
-            </div>
-
-            <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
-                <div class="resume-content">
-                    <h3 class="mb-0">Software Engineer</h3>
-                    <div class="subheading mb-3">AvePoint Shanghai</div>
-                    <p>Podcasting operational change management inside of workflows to establish a framework. Taking
-                        seamless key performance indicators offline to maximise the long tail. Keeping your eye on the
-                        ball while performing a deep dive on the start-up mentality to derive convergence on
-                        cross-platform integration.</p>
-                </div>
-                <div class="resume-date text-md-right">
-                    <span class="text-primary">July 2013 - July 2014</span>
-                </div>
-            </div>
-
+            {% endfor %}
         </div>
 
     </section>
@@ -135,16 +104,18 @@
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="education">
         <div class="w-100">
             <h2 class="mb-5">Education</h2>
+            {% for edu in data['content']['educationList'] %}
 
             <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
                 <div class="resume-content">
-                    <h3 class="mb-0">Southeast University</h3>
-                    <div class="subheading mb-3">Bachelor of Science</div>
+                    <h3 class="mb-0">{{edu['school']}}</h3>
+                    <div class="subheading mb-3">{{edu['major']}}</div>
                 </div>
                 <div class="resume-date text-md-right">
-                    <span class="text-primary">Spet 2010 - July 2014</span>
+                    <span class="text-primary">{{edu['time']}}</span>
                 </div>
             </div>
+            {% endfor %}
 
         </div>
     </section>
@@ -157,49 +128,20 @@
 
             <div class="subheading mb-3">Tools</div>
             <ul class="list-inline dev-icons">
+                {% for item in data['content']['skills']['tools'] %}
                 <li class="list-inline-item">
-                    <i class="fas fa-file-word"></i>
+                    <i class="{{item}}"></i>
                 </li>
-                <li class="list-inline-item">
-                    <i class="fas fa-file-excel"></i>
-                </li>
-                <li class="list-inline-item">
-                    <i class="fas fa-file-powerpoint"></i>
-                </li>
-                <li class="list-inline-item">
-                    <i class="fas fa-database"></i>
-                </li>
-                <li class="list-inline-item">
-                    <i class="fab fa-sketch"></i>
-                </li>
-                <li class="list-inline-item">
-                    <i class="fab fa-invision"></i>
-                </li>
-                <li class="list-inline-item">
-                    <i class="fab fa-r-project"></i>
-                </li>
-                <li class="list-inline-item">
-                    <i class="fab fa-python"></i>
-                </li>
-                <li class="list-inline-item">
-                    <i class="fab fa-wordpress"></i>
-                </li>
+                {% endfor %}
             </ul>
 
             <div class="subheading mb-3">Skills</div>
             <ul class="fa-ul mb-0">
+                {% for item in data['content']['skills']['skills'] %}
                 <li>
                     <i class="fa-li fa fa-check"></i>
-                    Product & Project Management</li>
-                <li>
-                    <i class="fa-li fa fa-check"></i>
-                    Data Driven, Good Visualization & Presenting Skill</li>
-                <li>
-                    <i class="fa-li fa fa-check"></i>
-                    Multi-tasking & Cross Functional Teams</li>
-                <li>
-                    <i class="fa-li fa fa-check"></i>
-                    Agile Development &amp; Scrum</li>
+                    {{item}}</li>
+                {% endfor %}
             </ul>
         </div>
     </section>

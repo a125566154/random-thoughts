@@ -1,0 +1,61 @@
+{
+    "resumeList" : {
+        "cary" : {
+            "title" : "Cary's Resume",
+            "content" : {
+                "firstName" : "Cary",
+                "lastName" : "Wang",
+                "fullname" : "Cary Wang",
+                "profilePath" : "image/profile-cary.jpg",
+                "location" : "599 Jiangning Road · Shanghai",
+                "mobile" : "17717595390",
+                "email" : "cary.wang@hotmail.com",
+                "about" : [
+                    "Experience leading product from concept to reality.",
+                    "Data-driven product development practice.",
+                    "2 years oversea working experience. Able to work with virtual team and deliver project successfully.",
+                    "Experience managing a team and coaching junior team members.",
+                    "Certified PMP. Experience with both traditional project management and Agile Scrum methodology."],
+                "linkedin" : "https://www.linkedin.com/in/cw-a33866a4",
+                "experienceList" : [
+                    {
+                        "title" : "Product Manager",
+                        "company" : "Mercer",
+                        "time": "Feb 2017 - Present",
+                        "description" : "Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring."
+                    },
+                    {
+                        "title" : "Business Analyst",
+                        "company" : "AvePoint Singapore",
+                        "time": "July 2014 - Feb 2017",
+                        "description" : "Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring."
+                    },
+                    {
+                        "title" : "Software Engineer",
+                        "company" : "AvePoint Shanghai",
+                        "time": "July 2013 - July 2014",
+                        "description" : "Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring."
+                    }
+                ],
+                "educationList" : [
+                    {
+                        "school" : "Southeast University",
+                        "major" : "Bachelor of Software Engineering",
+                        "time" : "Spet 2010 - July 2014"
+                    }
+                ],
+                "skills" : {
+                    "tools" : [
+                        "fas fa-file-word", "fas fa-file-excel", "fas fa-file-powerpoint", "fas fa-database", "fab fa-sketch", "fab fa-invision", "fab fa-r-project", "fab fa-python", "fab fa-wordpress"
+                    ],
+                    "skills" : [
+                        "Product & Project Management",
+                        "Data Driven, Good Visualization & Presenting Skill",
+                        "Multi-tasking & Cross Functional Teams",
+                        "Agile Development & Scrum"
+                    ]
+                }
+            }
+        }
+    }
+}
