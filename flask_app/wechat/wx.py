@@ -52,5 +52,5 @@ def handle():
             pass
         return "success"
 
-def TextHandler(request):
-    pass
+def getResponse(recMsg):
+    return "success"
