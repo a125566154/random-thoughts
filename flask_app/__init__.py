@@ -3,12 +3,17 @@ import os
 from flask import Flask
 
 
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
+        SQLALCHEMY_DATABASE_URI='mysql://cary:1qaz2wsxE@34.83.211.214/mysitedb'
     )
+    
+    from flask_app.models import db
+    db.init_app(app)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing

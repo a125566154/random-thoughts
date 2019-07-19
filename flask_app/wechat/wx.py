@@ -3,8 +3,11 @@ from flask import (
 )
 
 from flask_app.wechat import receive, reply
+from flask_app.models import Token
 
 import hashlib
+import requests
+import json
 
 bp = Blueprint('wx', __name__, url_prefix='/wx')
 
@@ -54,4 +57,34 @@ def getResponse(recMsg):
         return resMsg.send()
     else:
         return "success"
-    
+
+@bp.route('/token',methods=['GET'])
+def getAccessToken():
+    token = Token.query.first()
+    if token is None:
+        token = getRealAccessToken()
+        db.session.add(token)
+        db.session.commit()
+        return token.token
+    else:
+        now = datetime.datetime.now()
+        if now >= token.expireon :
+            token = getRealAccessToken()
+            db.session.add(token)
+            db.session.commit()
+            return token.token
+        else:
+            return token.token
+
+def getRealAccessToken():
+    appid = 'wxfc1a67f2d7bccbc7'
+    secret = 'fc4bfaf80bf1cb4cc64183420fc6359e'
+    response = requests.get("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s" % (appid, secret))
+    res = json.loads(response.content)
+    res_token = res['access_token']
+    res_expireon = datetime.datetime.now() + datetime.timedelta(seconds = 7200)
+    token = Token(res_token, res_expireon)
+    return token
+        
+
+        
