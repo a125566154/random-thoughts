@@ -41,16 +41,17 @@ def handle():
         print(data)
         recMsg = receive.parse_xml(data)
         print('Message received successfully')
-        if recMsg.MsgType == 'text':
-            print('text message')
-            toUser = recMsg.FromUserName
-            fromUser = recMsg.ToUserName
-            content = "Response text"
-            resMsg = reply.TextMsg(toUser, fromUser, content)
-            return resMsg.send()
-        else:
-            pass
-        return "success"
+        res = getResponse(recMsg)
+        return res
 
 def getResponse(recMsg):
-    return "success"
+    if recMsg.MsgType == 'text':
+        print('text message')
+        toUser = recMsg.FromUserName
+        fromUser = recMsg.ToUserName
+        content = "Response text"
+        resMsg = reply.TextMsg(toUser, fromUser, content)
+        return resMsg.send()
+    else:
+        return "success"
+    
