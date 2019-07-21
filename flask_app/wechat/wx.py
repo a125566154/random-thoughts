@@ -3,11 +3,12 @@ from flask import (
 )
 
 from flask_app.wechat import receive, reply
-from flask_app.models import Token
+from flask_app.models import db, Token
 
 import hashlib
 import requests
 import json
+import datetime
 
 bp = Blueprint('wx', __name__, url_prefix='/wx')
 
@@ -83,7 +84,7 @@ def getRealAccessToken():
     res = json.loads(response.content)
     res_token = res['access_token']
     res_expireon = datetime.datetime.now() + datetime.timedelta(seconds = 7200)
-    token = Token(res_token, res_expireon)
+    token = Token(token = res_token, expireon = res_expireon)
     return token
         
 
