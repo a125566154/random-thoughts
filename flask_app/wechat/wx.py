@@ -71,8 +71,8 @@ def getAccessToken():
         now = datetime.datetime.now()
         print(now)
         print(token.expireon)
-        print(now >= token.expireon)
-        if now >= token.expireon :
+        print(now > token.expireon)
+        if now > token.expireon :
             t = getRealAccessToken()
             db.session.add(t)
             db.session.delete(token)
