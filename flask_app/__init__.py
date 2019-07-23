@@ -32,8 +32,8 @@ def create_app(test_config=None):
         return 'Hello, World! This is from app factory'
 
     # register blueprints
-    from .wechat import wx
-    from .resume import resume
+    from flask_app.wechat import wx
+    from flask_app.resume import resume
     app.register_blueprint(wx.bp)
     app.register_blueprint(resume.bp)
 

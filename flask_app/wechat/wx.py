@@ -63,17 +63,22 @@ def getResponse(recMsg):
 def getAccessToken():
     token = Token.query.first()
     if token is None:
-        token = getRealAccessToken()
-        db.session.add(token)
+        t = getRealAccessToken()
+        db.session.add(t)
         db.session.commit()
-        return token.token
+        return t.token
     else:
         now = datetime.datetime.now()
+        print(now)
+        print(token.expireon)
+        print(now >= token.expireon)
         if now >= token.expireon :
-            token = getRealAccessToken()
-            db.session.add(token)
+            t = getRealAccessToken()
+            db.session.add(t)
+            db.session.delete(token)
             db.session.commit()
-            return token.token
+            print("t's token is %s" % (t.token))
+            return t.token
         else:
             return token.token
 
@@ -83,9 +88,18 @@ def getRealAccessToken():
     response = requests.get("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s" % (appid, secret))
     res = json.loads(response.content)
     res_token = res['access_token']
-    res_expireon = datetime.datetime.now() + datetime.timedelta(seconds = 7200)
+    res_expireon = datetime.datetime.now() + datetime.timedelta(seconds = int(res['expires_in']))
     token = Token(token = res_token, expireon = res_expireon)
     return token
         
-
-        
+def sendTemplateMessage(toUser, templateId, data):
+    access_token = getAccessToken()
+    print("token get %s" % (access_token))
+    url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=%s' % (access_token)
+    msgData = json.dumps({
+        "touser" : toUser,
+        "template_id" : templateId,
+        "data" : data
+    })
+    res = requests.post(url, data = msgData)
+    print(res.content)

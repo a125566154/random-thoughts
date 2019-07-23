@@ -5,7 +5,7 @@ db = SQLAlchemy()
 
 class Token(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    token = db.Column(db.String(100), unique=True, nullable=False)
+    token = db.Column(db.String(190), unique=True, nullable=False)
     expireon = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self):
