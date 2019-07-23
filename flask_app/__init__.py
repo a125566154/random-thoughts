@@ -34,7 +34,9 @@ def create_app(test_config=None):
     # register blueprints
     from flask_app.wechat import wx
     from flask_app.resume import resume
+    from flask_app.task import taskExec
     app.register_blueprint(wx.bp)
     app.register_blueprint(resume.bp)
+    app.register_blueprint(taskExec.bp)
 
     return app

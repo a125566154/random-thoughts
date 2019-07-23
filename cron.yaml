@@ -1,0 +1,4 @@
+cron:
+- description: "Drink reminder"
+  url: /task/drinkReminder
+  schedule: every 1 minutes from 10:00 to 18:00
