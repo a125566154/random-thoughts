@@ -84,6 +84,7 @@ def getUnsplashRandomImage():
         'picUrl' : data['urls']['regular'],
         'link' : data['links']['html']
     })
+    print(picInfo)
     return picInfo
 
 @bp.route('/token',methods=['GET'])
