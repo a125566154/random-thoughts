@@ -61,8 +61,8 @@ def getTextResponse(recMsg):
         print('send random images')
         toUser = recMsg.FromUserName
         fromUser = recMsg.ToUserName
-        picUrl = getUnsplashRandomImage()
-        resMsg = reply.ImageMsg(toUser, fromUser, picUrl)
+        picInfo = getUnsplashRandomImage()
+        resMsg = reply.NewsMsg(toUser, fromUser, "A Random Unsplash Image", picInfo['desc'], picInfo['picUrl'], picInfo['link'])
         return resMsg.send()
     else:
         toUser = recMsg.FromUserName
@@ -79,8 +79,12 @@ def getUnsplashRandomImage():
     url = 'https://api.unsplash.com/photos/random?client_id=%s' % (token)
     res = requests.get(url)
     data = res.json()
-    print(data['urls']['regular'])
-    return data['urls']['regular']
+    picInfo = json.dumps({
+        'desc' : data['description'],
+        'picUrl' : data['urls']['regular'],
+        'link' : data['links']['html']
+    })
+    return picInfo
 
 @bp.route('/token',methods=['GET'])
 def getAccessToken():
