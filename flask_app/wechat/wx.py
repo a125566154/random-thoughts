@@ -41,7 +41,7 @@ def handle():
             return "Failed"
     else:
         print('POST Handler')
-        data = request.form['body']
+        data = request.data
         print(data)
         recMsg = receive.parse_xml(data)
         print('Message received successfully')
