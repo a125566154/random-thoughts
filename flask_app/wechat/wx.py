@@ -41,7 +41,7 @@ def handle():
             return "Failed"
     else:
         print('POST Handler')
-        data = request.data
+        data = request.form['body']
         print(data)
         recMsg = receive.parse_xml(data)
         print('Message received successfully')
@@ -50,14 +50,37 @@ def handle():
 
 def getResponse(recMsg):
     if recMsg.MsgType == 'text':
-        print('text message')
-        toUser = recMsg.FromUserName
-        fromUser = recMsg.ToUserName
-        content = "Response text"
-        resMsg = reply.TextMsg(toUser, fromUser, content)
-        return resMsg.send()
+        return getTextResponse(recMsg)
     else:
         return "success"
+
+# text message handler
+def getTextResponse(recMsg):
+    content = recMsg.Content
+    if content == b'random image':
+        print('send random images')
+        toUser = recMsg.FromUserName
+        fromUser = recMsg.ToUserName
+        picUrl = getUnsplashRandomImage()
+        resMsg = reply.ImageMsg(toUser, fromUser, picUrl)
+        return resMsg.send()
+    else:
+        toUser = recMsg.FromUserName
+        fromUser = recMsg.ToUserName
+        content = recMsg.Content
+        resMsg = reply.TextMsg(toUser, fromUser, content)
+        return resMsg.send()
+
+def getTextResponseContent(msg):
+    pass
+
+def getUnsplashRandomImage():
+    token = '84adb16cb498e1171f5da0aef4761a00f45b30d4eaec14897286d16a889674ab'
+    url = 'https://api.unsplash.com/photos/random?client_id=%s' % (token)
+    res = requests.get(url)
+    data = res.json()
+    print(data['urls']['regular'])
+    return data['urls']['regular']
 
 @bp.route('/token',methods=['GET'])
 def getAccessToken():

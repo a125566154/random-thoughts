@@ -87,7 +87,9 @@
                 <div class="resume-content">
                     <h3 class="mb-0">{{exp['title']}}</h3>
                     <div class="subheading mb-3">{{exp['company']}}</div>
-                    <p>{{exp['description']}}</p>
+                    {% for desc in exp['description'].split('\n') %}
+                    <p>{{desc}}</p>
+                    {% endfor %}
                 </div>
                 <div class="resume-date text-md-right">
                     <span class="text-primary">{{exp['time']}}</span>
