@@ -39,6 +39,11 @@
                 ],
                 "educationList" : [
                     {
+                        "school" : "Withub Training Center",
+                        "major" : "PMP - Project Management Institute",
+                        "time" : "Spet 2016"
+                    },
+                    {
                         "school" : "Southeast University",
                         "major" : "Bachelor of Software Engineering",
                         "time" : "Spet 2010 - July 2014"
